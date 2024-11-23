@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "BME280.h"
+#include "TSL2561.h"
 #include "my_usart.h"
 /* USER CODE END Includes */
 
@@ -95,6 +96,8 @@ int main(void)
   BME_sensor BME280;
 
   BME280_init(&BME280);
+
+  TSL2561_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,6 +105,7 @@ int main(void)
   while (1)
   {
 	  BME280_print_values_sensors(&BME280);
+	  TSL2561_print_value();
 	  usart_crlf();
 	  HAL_Delay(100);
     /* USER CODE END WHILE */
