@@ -60,6 +60,10 @@ void Error_Handler(void);
 #define AS3935_IRQ_Pin GPIO_PIN_1
 #define AS3935_IRQ_GPIO_Port GPIOA
 #define AS3935_IRQ_EXTI_IRQn EXTI1_IRQn
+#define BTN1_Pin GPIO_PIN_4
+#define BTN1_GPIO_Port GPIOA
+#define BTN2_Pin GPIO_PIN_5
+#define BTN2_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

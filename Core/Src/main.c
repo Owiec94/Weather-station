@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -28,6 +29,7 @@
 #include "TSL2561.h"
 #include "my_usart.h"
 #include "AS3935.h"
+#include "buttons.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +56,8 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+void B1Handle(void);
+void B2Handle(void);
 
 /* USER CODE END PFP */
 
@@ -93,6 +97,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_I2C1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
   AS3935_init();
@@ -103,6 +108,14 @@ int main(void)
   BME280_init(&BME280);
 
   TSL2561_init();
+
+  ButtonInit(&btn1, BTN1_GPIO_Port, BTN1_Pin, GPIO_PIN_SET, 10, 10);
+  ButtonInit(&btn2, BTN2_GPIO_Port, BTN2_Pin, GPIO_PIN_SET, 10, 10);
+
+  ButtonPressedCallbackRegister(&btn1, B1Handle);
+  ButtonPressedCallbackRegister(&btn2, B2Handle);
+
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -163,7 +176,15 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void B1Handle(void)
+{
+	usart_write_non_DMA("1\r\n");
+}
 
+void B2Handle(void)
+{
+	usart_write_non_DMA("2\r\n");
+}
 /* USER CODE END 4 */
 
 /**
