@@ -27,6 +27,7 @@
 #include "BME280.h"
 #include "TSL2561.h"
 #include "my_usart.h"
+#include "AS3935.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,6 +94,10 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+
+  AS3935_init();
+  NVIC_EnableIRQ(EXTI1_IRQn);	//after SRC0 on IRQ pin enable interrupts in IRQ pin
+
   BME_sensor BME280;
 
   BME280_init(&BME280);
@@ -104,6 +109,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if(AS3935_get_lightning_flag())
+	  {
+		  HAL_Delay(2);
+		  AS3935_clear_lightning_flag();
+		  AS3935_get_interrupt_reason();
+	  }
 	  BME280_print_values_sensors(&BME280);
 	  TSL2561_print_value();
 	  usart_crlf();

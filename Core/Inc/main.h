@@ -57,6 +57,9 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define AS3935_IRQ_Pin GPIO_PIN_1
+#define AS3935_IRQ_GPIO_Port GPIOA
+#define AS3935_IRQ_EXTI_IRQn EXTI1_IRQn
 
 /* USER CODE BEGIN Private defines */
 

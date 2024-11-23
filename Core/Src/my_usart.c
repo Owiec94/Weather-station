@@ -5,6 +5,7 @@
  *      Author: mikio
  */
 #include <inttypes.h>
+#include <stdlib.h>
 #include "usart.h"
 #include "my_usart.h"
 

@@ -9,7 +9,7 @@ uint8_t TSL2561_gain_value = TSL2561_TIMING_GAIN_1X;
 uint8_t TSL2561_init(void)
 {
 	uint8_t rev_id = 0;
-	HAL_I2C_Mem_Read(&hi2c1, I2C_TSL2561_ADRES, TSL2561_CMD_BIT | 0x0A, 1, &rev_id, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c1, I2C_TSL2561_ADDRESS, TSL2561_CMD_BIT | 0x0A, 1, &rev_id, 1, HAL_MAX_DELAY);
 
 	usart_write_non_DMA("TSL2561 WHO_AM_I: ");
 	if(rev_id != 80)
@@ -26,13 +26,13 @@ uint8_t TSL2561_init(void)
 
 
 	uint8_t ctrl = TSL2561_CONTROL_POWER_ON;
-	HAL_I2C_Mem_Write(&hi2c1, I2C_TSL2561_ADRES, TSL2561_CMD_BIT | 0x00, 1, &ctrl, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c1, I2C_TSL2561_ADDRESS, TSL2561_CMD_BIT | 0x00, 1, &ctrl, 1, HAL_MAX_DELAY);
 
 	uint8_t gain_timing = TSL2561_gain_value | TSL2561_timing_integ_value;
-	HAL_I2C_Mem_Write(&hi2c1, I2C_TSL2561_ADRES, TSL2561_CMD_BIT | 0x01, 1, &gain_timing, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c1, I2C_TSL2561_ADDRESS, TSL2561_CMD_BIT | 0x01, 1, &gain_timing, 1, HAL_MAX_DELAY);
 
 	uint8_t interrupt_level = TSL2561_INTERRUPT_INTR_LEVEL;
-	HAL_I2C_Mem_Write(&hi2c1, I2C_TSL2561_ADRES, TSL2561_CMD_BIT | 0x06, 1, &interrupt_level, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c1, I2C_TSL2561_ADDRESS, TSL2561_CMD_BIT | 0x06, 1, &interrupt_level, 1, HAL_MAX_DELAY);
 
 	return 0;
 }
@@ -116,7 +116,7 @@ unsigned int TSL2561_read(void)
 	uint8_t tab[4];
 	uint16_t DATA0, DATA1;
 
-	HAL_I2C_Mem_Read(&hi2c1, I2C_TSL2561_ADRES, TSL2561_CMD_BIT | 0x0C, 1, tab, 4, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c1, I2C_TSL2561_ADDRESS, TSL2561_CMD_BIT | 0x0C, 1, tab, 4, HAL_MAX_DELAY);
 	DATA0 = (tab[1] << 8) | tab[0];
 	DATA1 = (tab[3] << 8) | tab[2];
 

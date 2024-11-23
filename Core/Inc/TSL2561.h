@@ -3,7 +3,7 @@
 #include <inttypes.h>
 
 /*	0x29 - GND, 0x49 - VCC, 0x39 - FLOAT*/
-#define I2C_TSL2561_ADRES 			(0x49 << 1)
+#define I2C_TSL2561_ADDRESS 			(0x49 << 1)
 #define TSL2561_CMD_BIT 			0x80
 
 #define TSL2561_CONTROL_POWER_ON	0x03
